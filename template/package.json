@@ -8,7 +8,14 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "pod": "npx pod-install ios"
+    "pod": "npx pod-install ios",
+    "android:stage": "react-native run-android --variant=stageDebug --appIdSuffix=stage",
+    "android:stage-release": "react-native run-android --variant=stageRelease  --appIdSuffix=stage",
+    "android:dev": "react-native run-android --variant=devDebug  --appIdSuffix=dev",
+    "android:dev-release": "react-native run-android --variant=devRelease  --appIdSuffix=dev",
+    "android:prod": "react-native run-android --variant=prodDebug  --appIdSuffix=prod",
+    "android:prod-release": "react-native run-android --variant=prodRelease  --appIdSuffix=prod",
+    "android:devBuild":"cd android && ./gradlew bundleDevRelease"
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.4.1",
@@ -17,6 +24,7 @@
     "axios": "^1.2.0",
     "react": "18.1.0",
     "react-native": "0.70.6",
+    "react-native-config": "^1.4.11",
     "react-native-safe-area-context": "^4.4.1",
     "react-native-screens": "^3.18.2",
     "react-native-vector-icons": "^9.2.0"

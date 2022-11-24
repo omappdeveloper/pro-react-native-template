@@ -1,5 +1,15 @@
 apply plugin: "com.android.application"
 
+project.ext.envConfigFiles = [
+   proddebug: ".env.prod",
+   prodrelease: ".env.prod",
+   devrelease: ".env.dev",
+   devdebug: ".env.dev",
+   stagerelease: ".env.stage",
+   stagedebug: ".env.stage"
+]
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
 import com.android.build.OutputFile
 import org.apache.tools.ant.taskdefs.condition.Os
 
@@ -222,6 +232,7 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            matchingFallbacks = ['debug', 'release']
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
@@ -232,12 +243,47 @@ android {
         }
     }
 
+    flavorDimensions "default"
+    productFlavors {
+        prod {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationId defaultConfig.applicationId
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", defaultConfig.applicationId
+        }
+        stage {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationIdSuffix ".stage"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", defaultConfig.applicationId
+        }
+        dev {
+            minSdkVersion rootProject.ext.minSdkVersion
+            applicationIdSuffix ".dev"
+            targetSdkVersion rootProject.ext.targetSdkVersion
+            resValue "string", "build_config_package", defaultConfig.applicationId
+        }
+    }
+    
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             // For each separate APK per architecture, set a unique version code as described here:
             // https://developer.android.com/studio/build/configure-apk-splits.html
             // Example: versionCode 1 will generate 1001 for armeabi-v7a, 1002 for x86, etc.
+
+            def appName
+            // if applicationName property is set in gradle.properties
+            if (project.hasProperty("applicationName")) {
+                appName = applicationName
+            } else {
+            // if not use the name of the parent project
+                appName = parent.name
+            }
+            //def formattedDate = new Date().format('yyyy-MM-dd_HH:mm:ss')
+            def formattedDate = new Date().format('dd-MMM-yyyy')
+            //output.outputFileName ="${appName}-${output.baseName}-${variant.versionCode}(${variant.versionName})-${formattedDate}.apk"
+            //println("outputFileName: " + output)
             def versionCodes = ["armeabi-v7a": 1, "x86": 2, "arm64-v8a": 3, "x86_64": 4]
             def abi = output.getFilter(OutputFile.ABI)
             if (abi != null) {  // null for the universal-debug, universal-release variants
