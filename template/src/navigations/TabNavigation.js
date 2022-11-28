@@ -11,7 +11,7 @@ const TabNavigation = () => {
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ focused, color, size }) => {
-                        return <Icon name={'ios-account'} size={25} color={color} />
+                        return <Icon name={'person'} size={25} color={color} />
                     }
                 }}
             />

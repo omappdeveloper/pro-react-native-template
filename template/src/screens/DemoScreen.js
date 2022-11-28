@@ -33,7 +33,7 @@ export const HomeScreen = ({ navigation }) => {
             <MaterialCommunityIcons name='home' size={24} />
             <View style={{ paddingTop: 20 }}>
                 <Button
-                    title="Go to Profile Screen"
+                    title="Go to Bottom Tab Screen"
                     onPress={() => navigation.navigate('Profile')}
                 />
             </View>
