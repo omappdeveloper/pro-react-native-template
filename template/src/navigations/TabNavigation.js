@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeScreen, SettingsScreen } from '../screens/DemoScreen'
+import { HomeScreen, ProfileScreen, SettingsScreen } from '../screens/DemoScreen'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 const Tab = createBottomTabNavigator();
@@ -7,11 +7,11 @@ const Tab = createBottomTabNavigator();
 const TabNavigation = () => {
     return (
         <Tab.Navigator>
-            <Tab.Screen name="Home" component={HomeScreen}
+            <Tab.Screen name="Profile" component={ProfileScreen}
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ focused, color, size }) => {
-                        return <Icon name={'ios-home'} size={25} color={color} />
+                        return <Icon name={'ios-account'} size={25} color={color} />
                     }
                 }}
             />

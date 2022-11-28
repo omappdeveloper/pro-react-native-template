@@ -5,5 +5,5 @@ module.exports = {
                 ios: null,
             },
         },
-    },
+    }
 };

@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Button } from 'react-native'
 import React from 'react'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
 export const ProfileScreen = ({ navigation }) => {
     return (
         <View style={styles.center}>
@@ -24,7 +25,6 @@ export const SettingsScreen = ({ navigation }) => {
         </View>
     )
 }
-
 
 export const HomeScreen = ({ navigation }) => {
     return (
